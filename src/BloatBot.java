@@ -135,6 +135,7 @@ public class BloatBot extends PircBot {
 			int offset = 0;
 			int total = 0;
 			int next = 0;
+			boolean isQuoteAndIgnoreTillEndQuote = false;
 
 			for(int i = 0; i < count && next != -1; i++) {
 				next = input.indexOf(" ", offset);
@@ -145,8 +146,10 @@ public class BloatBot extends PircBot {
 					args[i] = input.substring(offset, next);
 
 					if(quotations && args[i].startsWith("\"")) {
+						isQuoteAndIgnoreTillEndQuote = true;
 						int quote = input.indexOf('"', offset + 1);
-
+						int endQuote = 0;
+						
 						if(quote == -1) {
 							args[i] = input.substring(offset + 1);
 							next = -1;

@@ -1,7 +1,9 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.Format;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -21,7 +23,8 @@ import org.jibble.pircbot.*;
  * 
  * NOTE: this requires pircbot.jar from www.jibble.org
  * 
- * @author Zolomon (http://www.Zolomon.eu) @ 2009
+ * @author AMcBain ( http://www.asmcbain.net/ ) @ 2009
+ * @modified Zolomon @ 2009
  */
 public class BloatBot extends PircBot {
 
@@ -29,19 +32,16 @@ public class BloatBot extends PircBot {
 	private final List<BotCommand> commands;
 
 	private String channel;
-	private Properties authConfig;
 	private Properties config;
 
 	// The character which tells the bot we're talking to it and not anything
 	// else.
-	private final String prefix = ".";
+	private final String prefix = ".bloatbot ";
 
-	public BloatBot(Properties config) {
-		authConfig = new Properties();
-		config = new Properties();
-
+	public BloatBot() {
+		config = getProperties("pbdemo.properties");	
 		channel = config.getProperty("channel");
-
+		
 		commands = new ArrayList<BotCommand>();
 
 		// Add all commands
@@ -66,7 +66,17 @@ public class BloatBot extends PircBot {
 		// Find out if message was for this bot
 		if (message.startsWith(prefix)) {
 			message = message.replace(prefix, "");
-
+			
+			String[] args = getArguments(message, -1);
+			String arg = "";
+			for(String s : args){
+				arg += s + " ";
+			}
+			
+			sendMessage(channel, arg);
+			
+			sendMessage(channel, "Arguments: " + Integer.toString(args.length));
+			
 			// Find out the command given (in a very simplistic way) ... this
 			// doesn't scale
 			for (BotCommand command : commands) {
@@ -83,9 +93,9 @@ public class BloatBot extends PircBot {
 	}
 
 	public void onConnect() {
-		String authBot = authConfig.getProperty("authbot");
-		String authMessage = authConfig.getProperty("authmessage");
-		String hostmask = authConfig.getProperty("hostmask");
+		String authBot = config.getProperty("authbot");
+		String authMessage = config.getProperty("authmessage");
+		String hostmask = config.getProperty("hostmask");
 
 		// auth
 		sendRawLine("PRIVMSG " + authBot + " :" + authMessage);
@@ -99,11 +109,10 @@ public class BloatBot extends PircBot {
 		System.exit(0);
 	}
 
-	public Properties getProperties() {
+	public Properties getProperties(String filepath) {
 		Properties config = new Properties();
-
 		try {
-			config.load(new FileInputStream("pbdemo.properties"));
+			config.load(new FileInputStream(filepath));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -113,5 +122,51 @@ public class BloatBot extends PircBot {
 		}
 
 		return config;
+	}
+	
+	public String[] getArguments(String input, int count) {
+		return getArguments(input, count, true);
+	}
+	public String[] getArguments(String input, int count, boolean quotations) {
+		if(count < 0) {
+			return input.split(" ");
+		} else {
+			String[] args = new String[count];
+			int offset = 0;
+			int total = 0;
+			int next = 0;
+
+			for(int i = 0; i < count && next != -1; i++) {
+				next = input.indexOf(" ", offset);
+
+				if(next == -1) {
+					args[i] = input.substring(offset);
+				} else {
+					args[i] = input.substring(offset, next);
+
+					if(quotations && args[i].startsWith("\"")) {
+						int quote = input.indexOf('"', offset + 1);
+
+						if(quote == -1) {
+							args[i] = input.substring(offset + 1);
+							next = -1;
+						} else {
+							args[i] = input.substring(offset + 1, quote);
+							if(quote + 1 < input.length() && input.charAt(quote + 1) == ' ') {
+								next = quote + 1;
+							} else if(quote + 1 == input.length()) {
+								next = -1;
+							} else {
+								next = quote;
+							}
+						}
+					}
+				}
+				offset = next + 1;
+				total++;
+			}
+
+			return (total == count)? args : Arrays.copyOfRange(args, 0, total);
+		}
 	}
 }

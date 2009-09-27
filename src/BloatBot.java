@@ -84,8 +84,8 @@ public class BloatBot extends PircBot {
 				// the command from the message and pass the event along to the
 				// BotCommand
 				if (message.startsWith(command.getCommand())) {
-					command.handleMessage(this, channel, sender, message
-							.replace(command.getCommand(), "").trim(), args);
+					command.handleMessage(this, channel, sender, 
+							message.replace(command.getCommand(), "").trim(), args);
 				}
 			}
 		}

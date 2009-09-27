@@ -10,9 +10,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.jibble.pircbot.PircBot;
+
+import com.sun.cnpi.rss.elements.Category;
+import com.sun.cnpi.rss.elements.Item;
+import com.sun.cnpi.rss.elements.Rss;
+import com.sun.cnpi.rss.parser.RssParser;
+import com.sun.cnpi.rss.parser.RssParserException;
+import com.sun.cnpi.rss.parser.RssParserFactory;
+
 
 public class RssCommand implements BotCommand {
 	private ArrayList<String> feeds;
@@ -36,7 +48,7 @@ public class RssCommand implements BotCommand {
 			addFeed(args[2]);
 		} else if (args[1].equals("remove")) {
 			int position = Integer.parseInt(args[2]);
-			if (position < 0 || position >= feeds.size()) {
+			if (position < 1 || position > feeds.size()) {
 				bot.sendMessage(channel, "Could not find feed.");
 			} else {
 				removeFeed(position);
@@ -59,6 +71,14 @@ public class RssCommand implements BotCommand {
 		} else if (args[1].equals("clear")) {
 			bot.sendMessage(channel, "All feeds cleared.");
 			clearFeeds();
+		} else if (args[1].equals("update")) {
+			int counter = 1;
+			feeds = getFeeds();
+			for(String feed : feeds) {
+				Item i = parseFeed(feeds.get(counter));
+				bot.sendMessage(channel, String.format("%02d.", counter) + " - " + i.getTitle() + " [" + i.getLink() +"]");
+				counter++;
+			}
 		}
 	}
 
@@ -156,5 +176,36 @@ public class RssCommand implements BotCommand {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Item parseFeed(String feed) {
+		try {
+			RssParser parser = RssParserFactory.createDefault();
+			Rss rss = parser.parse(new URL(feed));
+			Item feedItem = null;
+			
+			// Get all XML elements in the feed
+			Collection items = rss.getChannel().getItems();
+			if(items != null && !items.isEmpty()) {
+				for(Iterator i = items.iterator(); i.hasNext(); System.out.println()) {
+					feedItem = (Item)i.next();					
+					System.out.println("Title: " + feedItem.getTitle());
+					System.out.println("Link: " + feedItem.getLink());
+					System.out.println("Description: " + feedItem.getDescription());
+					break;
+				}
+			}
+			return feedItem;
+		} catch (RssParserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

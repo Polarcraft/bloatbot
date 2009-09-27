@@ -33,6 +33,10 @@ public class BloatBot extends PircBot {
 
 	private String channel;
 	private Properties config;
+	
+	// There's a bug in the getArgument() method for when count < 0 and quotation is true, it doesn't 
+	// consider the quote as one argument if there are spaces between the quotes.
+	private int maxArgs = 3;
 
 	// The character which tells the bot we're talking to it and not anything
 	// else.
@@ -48,6 +52,7 @@ public class BloatBot extends PircBot {
 		commands.add(new TimeCommand());
 		commands.add(new QuitCommand());
 		commands.add(new HelloCommand());
+		commands.add(new RssCommand());
 
 		// Connect to IRC
 		setAutoNickChange(true);
@@ -67,15 +72,7 @@ public class BloatBot extends PircBot {
 		if (message.startsWith(prefix)) {
 			message = message.replace(prefix, "");
 			
-			String[] args = getArguments(message, -1);
-			String arg = "";
-			for(String s : args){
-				arg += s + " ";
-			}
-			
-			sendMessage(channel, arg);
-			
-			sendMessage(channel, "Arguments: " + Integer.toString(args.length));
+			String[] args = getArguments(message, maxArgs);
 			
 			// Find out the command given (in a very simplistic way) ... this
 			// doesn't scale
@@ -86,7 +83,7 @@ public class BloatBot extends PircBot {
 				// BotCommand
 				if (message.startsWith(command.getCommand())) {
 					command.handleMessage(this, channel, sender, message
-							.replace(command.getCommand(), "").trim());
+							.replace(command.getCommand(), "").trim(), args);
 				}
 			}
 		}
@@ -128,14 +125,14 @@ public class BloatBot extends PircBot {
 		return getArguments(input, count, true);
 	}
 	public String[] getArguments(String input, int count, boolean quotations) {
-		if(count < 0) {
+		// TODO Fix the quotation bug.
+		if(count < 0) {			
 			return input.split(" ");
 		} else {
 			String[] args = new String[count];
 			int offset = 0;
 			int total = 0;
 			int next = 0;
-			boolean isQuoteAndIgnoreTillEndQuote = false;
 
 			for(int i = 0; i < count && next != -1; i++) {
 				next = input.indexOf(" ", offset);
@@ -146,9 +143,7 @@ public class BloatBot extends PircBot {
 					args[i] = input.substring(offset, next);
 
 					if(quotations && args[i].startsWith("\"")) {
-						isQuoteAndIgnoreTillEndQuote = true;
 						int quote = input.indexOf('"', offset + 1);
-						int endQuote = 0;
 						
 						if(quote == -1) {
 							args[i] = input.substring(offset + 1);

@@ -19,5 +19,5 @@ public interface BotCommand {
 	// Each BotCommand implementor will return the command name to which they respond
 	public String getCommand();
 	// The method where each BotCommand implementor will handle the event
-	public void handleMessage(PircBot bot, String channel, String sender, String message);
+	public void handleMessage(PircBot bot, String channel, String sender, String message, String[] args);
 }

@@ -6,7 +6,7 @@ public class QuitCommand implements BotCommand {
 		return "quit";
 	}
 
-	public void handleMessage(PircBot bot, String channel, String sender, String message) {
+	public void handleMessage(PircBot bot, String channel, String sender, String message, String[] args) {
 		bot.quitServer("Bye bye!");
 	}
 	

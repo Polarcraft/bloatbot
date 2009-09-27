@@ -74,11 +74,13 @@ public class RssCommand implements BotCommand {
 		} else if (args[1].equals("update")) {
 			int counter = 1;
 			feeds = getFeeds();
+			System.out.println(feeds.size());
 			for(String feed : feeds) {
 				Item i = parseFeed(feeds.get(counter));
 				bot.sendMessage(channel, String.format("%02d.", counter) + " - " + i.getTitle() + " [" + i.getLink() +"]");
 				counter++;
 			}
+			System.out.println("Counter: " + counter);
 		}
 	}
 
@@ -192,10 +194,10 @@ public class RssCommand implements BotCommand {
 					System.out.println("Title: " + feedItem.getTitle());
 					System.out.println("Link: " + feedItem.getLink());
 					System.out.println("Description: " + feedItem.getDescription());
-					break;
+					return feedItem;
 				}
 			}
-			return feedItem;
+			return null;
 		} catch (RssParserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,7 +1,6 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +33,7 @@ public class BloatBot extends PircBot {
 	// Store the commands
 	private final List<BotCommand> commands;
 
-	private String channel;
+	//private String channel;
 	private Properties config;
 	
 	// There's a bug in the getArgument() method for when count < 0 and quotation is true, it doesn't 
@@ -47,7 +46,7 @@ public class BloatBot extends PircBot {
 
 	public BloatBot() {
 		config = getProperties("pbdemo.properties");	
-		channel = config.getProperty("channel");
+		//channel = config.getProperty("channel");
 		
 		commands = new ArrayList<BotCommand>();
 

@@ -10,6 +10,9 @@ import java.util.Properties;
 import org.jibble.pircbot.*;
 
 /**
+ * Testing checkoutsystem---
+ * 
+ * 
  * A simple PircBot bot to show a quick and easy way to add multiple commands to
  * a bot. This allows the main bot class to stay clutter free and each command
  * has a private space to store information.

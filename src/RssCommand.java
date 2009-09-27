@@ -1,4 +1,4 @@
-import java.io.BufferedOutputStream;
+//import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.DataInputStream;
@@ -18,7 +18,7 @@ import java.util.Iterator;
 
 import org.jibble.pircbot.PircBot;
 
-import com.sun.cnpi.rss.elements.Category;
+//import com.sun.cnpi.rss.elements.Category;
 import com.sun.cnpi.rss.elements.Item;
 import com.sun.cnpi.rss.elements.Rss;
 import com.sun.cnpi.rss.parser.RssParser;

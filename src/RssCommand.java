@@ -72,13 +72,12 @@ public class RssCommand implements BotCommand {
 			bot.sendMessage(channel, "All feeds cleared.");
 			clearFeeds();
 		} else if (args[1].equals("update")) {
-			int counter = 1;
+			int counter = 0;
 			feeds = getFeeds();
 			System.out.println(feeds.size());
 			for(String feed : feeds) {
-				Item i = parseFeed(feeds.get(counter));
-				bot.sendMessage(channel, String.format("%02d.", counter) + " - " + i.getTitle() + " [" + i.getLink() +"]");
-				counter++;
+				Item i = parseFeed(feeds.get(counter++));
+				bot.sendMessage(channel, String.format("%02d.", counter) + " - " + i.getTitle() + " [" + i.getLink() +"]");				
 			}
 			System.out.println("Counter: " + counter);
 		}

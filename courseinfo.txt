@@ -1,0 +1,8 @@
+EDAF10 Objektorienterad modellering och diskreta strukturer:
+http://cs.lth.se/edaf10
+
+ETS052 Datorkommunikation:
+http://www.eit.lth.se/kurs/ets052
+
+EIT020 Digimonteknik:
+http://www.eit.lth.se/kurs/eit020

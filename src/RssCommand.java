@@ -129,7 +129,9 @@ public class RssCommand implements BotCommand {
 			}
 			pw.close();
 			br.close();
+			StringBuilder builder = new StringBuilder();
 
+			
 			// Delete the original file
 			if (!inFile.delete()) {
 				System.out.println("Could not delete file");

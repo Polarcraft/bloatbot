@@ -56,6 +56,7 @@ public class BloatBot extends PircBot {
 		commands.add(new HelloCommand());
 		commands.add(new RssCommand());
 		commands.add(new FMLCommand());
+		commands.add(new CourseCommand());
 
 		// Connect to IRC
 		setAutoNickChange(true);

@@ -56,9 +56,7 @@ public class BloatBot extends PircBot {
 		commands.add(new HelloCommand());
 		commands.add(new RssCommand());
 		commands.add(new FMLCommand());
-		commands.add(new CourseCommand());
-
-
+		commands.add(new CourseCommand());	
 		commands.add(new ReciteCommand());
 
 		// Connect to IRC
@@ -130,6 +128,22 @@ public class BloatBot extends PircBot {
 	
 	public String[] getArguments(String input, int count) {
 		return getArguments(input, count, true);
+	}
+
+	@Override
+	public void onJoin(String channel, String sender, String login, String hostname){
+		super.onJoin(channel, sender, login, hostname);
+		if(sender.equals("respek") || sender.equals("rspkt"))
+			sendMessage(channel, "Respekt "+ sender +"!");
+		if(sender.equals("kd35a"))
+			sendMessage(channel, "Welcome " +sender);
+		if(sender.equals("Zolomon"))
+			sendMessage(channel , "Welcome Zoiman!");
+		if(sender.equals("bloatbot2"))
+			sendMessage(channel, "NOOOOOes, there is two of me! Bloatbots sad ._. ");
+		
+	
+		
 	}
 	public String[] getArguments(String input, int count, boolean quotations) {
 		// TODO Fix the quotation bug.

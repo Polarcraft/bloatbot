@@ -138,7 +138,7 @@ public class BloatBot extends PircBot {
 		if(sender.equals("kd35a"))
 			sendMessage(channel, "Welcome " +sender);
 		if(sender.equals("Zolomon"))
-			sendMessage(channel , "Everybody great Zoiman!");
+			sendMessage(channel , "Everybody greet Zoiman!");
 		if(sender.equals("bloatbot2"))
 			sendMessage(channel, "NOOOOOes, there is two of me! Bloatbots sad ._. ");
 		if(sender.equals("Ralleballe"))

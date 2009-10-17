@@ -79,7 +79,7 @@ public class RssCommand implements BotCommand {
 				Item i = parseFeed(feeds.get(counter++));
 				bot.sendMessage(channel, String.format("%02d.", counter) + " - " + i.getTitle() + " [" + i.getLink() +"]");				
 			}
-			System.out.println("Counter: " + counter);
+		//System.out.println("Counter: " + counter);
 		}
 	}
 
@@ -91,7 +91,7 @@ public class RssCommand implements BotCommand {
 			w.newLine();
 			w.close();
 			out.close();
-			System.out.println("Added feed: " + feed);
+		//	System.out.println("Added feed: " + feed);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -102,7 +102,7 @@ public class RssCommand implements BotCommand {
 			File inFile = new File(file);
 
 			if (!inFile.isFile()) {
-				System.out.println("Parameter is not an existing file");
+		//		System.out.println("Parameter is not an existing file");
 				return;
 			}
 
@@ -122,7 +122,7 @@ public class RssCommand implements BotCommand {
 				currentPosition++;
 
 				if (currentPosition != position) {
-					System.out.println(line);
+					//System.out.println(line);
 					pw.println(line);
 					pw.flush();
 				}

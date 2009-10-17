@@ -28,7 +28,7 @@ public class CourseCommand implements BotCommand {
 	public void handleMessage(PircBot bot, String channel, String sender,
 			String message, String[] args) {
 				
-		if(sender.equals("Ralleballe89") || sender.equals("Ralleballe") || !args[1].equals("snälla"))
+		if((sender.equals("Ralleballe89") || sender.equals("Ralleballe") ) && (args[1] == null || !args[1].equals("snälla")))
 			bot.sendMessage(channel, "AHAHHAHAHAHAHAH. lol");
 		else{
 				try {

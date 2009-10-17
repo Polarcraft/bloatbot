@@ -133,7 +133,7 @@ public class BloatBot extends PircBot {
 	@Override
 	public void onJoin(String channel, String sender, String login, String hostname){
 		super.onJoin(channel, sender, login, hostname);
-		if(sender.equals("respek") || sender.equals("rspkt"))
+		if(sender.equals("respekt") || sender.equals("rspkt"))
 			sendMessage(channel, "Respekt "+ sender +"!");
 		if(sender.equals("kd35a"))
 			sendMessage(channel, "Welcome " +sender);
@@ -141,7 +141,12 @@ public class BloatBot extends PircBot {
 			sendMessage(channel , "Everybody great Zoiman!");
 		if(sender.equals("bloatbot2"))
 			sendMessage(channel, "NOOOOOes, there is two of me! Bloatbots sad ._. ");
-		
+		if(sender.equals("Ralleballe"))
+			sendMessage(channel, "Lo! Behold the arrival of Ralleballe ( wikipedia: ''slangord för testikel eller (i överförd bemärkelse) penis i Sveriges mellersta och norra delar' ");
+		if(sender.equals("Ralleballe89"))
+			sendMessage(channel, "Lo! Behold the arrival of 89 inched Ralleballe ( wikipedia: ''namnet på en runristare på 1000-talet, se Balle (runristare)' ");
+		if(sender.equals("bloatbot"))
+			sendMessage(channel, "Hello, I arrive!");
 	
 		
 	}

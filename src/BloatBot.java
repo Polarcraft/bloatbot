@@ -155,9 +155,12 @@ public class BloatBot extends PircBot {
 			sendMessage(channel, "Hello, I arrive!");
 		if(sender.equals("Bobbanovich"))
 			sendMessage(channel, "http://kd35a.se/skit/robin.jpg wahaha");
-	
-		
+		if(hostname.equals("c-83-233-152-86.cust.bredband2.com"))
+			sendMessage(channel, "Kolla " + sender + " = Ralleballe! :D (http://sv.wikipedia.org/wiki/Balle_(runristare)) ");
+		System.out.println(login);
+		System.out.println(hostname);
 	}
+	
 	public String[] getArguments(String input, int count, boolean quotations) {
 		// TODO Fix the quotation bug.
 		if(count < 0) {			

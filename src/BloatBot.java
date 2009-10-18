@@ -63,6 +63,7 @@ public class BloatBot extends PircBot {
 		commands.add(new DivideByZeroCommand());
 		commands.add(new ChangeNickCommand());
 		commands.add(new DoSomethingPrettyCommand());
+		commands.add(new GodNattCommand());
 		
 		// DANGEROUS. DOES NOT SCALE!!!!!!!
 		otherCommands = new ArrayList<BotCommand>();

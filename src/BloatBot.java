@@ -32,7 +32,9 @@ public class BloatBot extends PircBot {
 
 	// Store the commands
 	private final List<BotCommand> commands;
-
+	
+	// Not prefix triggered commands
+	private final List<BotCommand> otherCommands;
 	//private String channel;
 	private Properties config;
 	
@@ -61,6 +63,10 @@ public class BloatBot extends PircBot {
 		commands.add(new DivideByZeroCommand());
 		commands.add(new ChangeNickCommand());
 		commands.add(new DoSomethingPrettyCommand());
+		
+		// DANGEROUS. DOES NOT SCALE!!!!!!!
+		otherCommands = new ArrayList<BotCommand>();
+		otherCommands.add(new irritateFishbotCommand());
 		// Connect to IRC
 		setAutoNickChange(true);
 		setName(config.getProperty("nick"));
@@ -75,6 +81,16 @@ public class BloatBot extends PircBot {
 
 	public void onMessage(String channel, String sender, String login,
 			String hostname, String message) {
+		
+		// DANGEROUS. DOES NOT SCALE!!!!!!!
+		for(BotCommand commands : otherCommands){
+			if (message.startsWith(commands.getCommand())){
+				
+		
+			commands.handleMessage(this, channel, sender, 
+					message.replace(commands.getCommand(), "").trim(), null);
+				}
+		}
 		// Find out if message was for this bot
 		if (message.startsWith(prefix)) {
 			message = message.replace(prefix, "");

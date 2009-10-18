@@ -130,6 +130,12 @@ public class BloatBot extends PircBot {
 		return getArguments(input, count, true);
 	}
 
+	/**
+	 * 
+	 * Här hamnar alla login events. Vet ej vad super.onJoin gör så jag kallar den för säkerhets skull.
+	 * Gör den inget så gör det ju ignet att vi kallar den heller ^^.
+	 * 
+	 */
 	@Override
 	public void onJoin(String channel, String sender, String login, String hostname){
 		super.onJoin(channel, sender, login, hostname);
@@ -147,6 +153,8 @@ public class BloatBot extends PircBot {
 			sendMessage(channel, "Lo! Behold the arrival of 89 inched Ralleballe ( wikipedia: ''namnet på en runristare på 1000-talet, se Balle (runristare)' ");
 		if(sender.equals("bloatbot"))
 			sendMessage(channel, "Hello, I arrive!");
+		if(sender.equals("Bobbanovich"))
+			sendMessage(channel, "http://kd35a.se/skit/robin.jpg wahaha");
 	
 		
 	}

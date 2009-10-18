@@ -3,6 +3,8 @@ import org.jibble.pircbot.PircBot;
 
 public class irritateFishbotCommand implements BotCommand{
 
+	private static int saftySwitch =0;
+	
 	@Override
 	public String getCommand() {
 		// TODO Auto-generated method stub
@@ -13,8 +15,12 @@ public class irritateFishbotCommand implements BotCommand{
 	public void handleMessage(PircBot bot, String channel, String sender,
 			String message, String[] args) {
 		
-		
-			bot.sendMessage(channel, "spoon");
+			if(saftySwitch < 30){
+				saftySwitch ++;
+				
+				bot.sendMessage(channel, "spoon");
+					
+			}
 			
 		
 		

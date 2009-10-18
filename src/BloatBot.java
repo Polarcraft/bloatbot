@@ -58,7 +58,9 @@ public class BloatBot extends PircBot {
 		commands.add(new FMLCommand());
 		commands.add(new CourseCommand());	
 		commands.add(new ReciteCommand());
-
+		commands.add(new DivideByZeroCommand());
+		commands.add(new ChangeNickCommand());
+		commands.add(new DoSomethingPrettyCommand());
 		// Connect to IRC
 		setAutoNickChange(true);
 		setName(config.getProperty("nick"));
@@ -157,10 +159,13 @@ public class BloatBot extends PircBot {
 			sendMessage(channel, "http://kd35a.se/skit/robin.jpg wahaha");
 		if(hostname.equals("c-83-233-152-86.cust.bredband2.com"))
 			sendMessage(channel, "Kolla " + sender + " = Ralleballe! :D (http://sv.wikipedia.org/wiki/Balle_(runristare)) ");
-		System.out.println(login);
-		System.out.println(hostname);
+
 	}
 	
+	protected void onPrivateMessage(String sender, String login, String hostname, String message){
+		super.onPrivateMessage(sender, login, hostname, message);
+		sendMessage("#d10", sender+" makes me nervous.");
+	}
 	public String[] getArguments(String input, int count, boolean quotations) {
 		// TODO Fix the quotation bug.
 		if(count < 0) {			

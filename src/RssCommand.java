@@ -160,7 +160,7 @@ public class RssCommand implements BotCommand {
 			String line;
 			while ((line = br.readLine()) != null) {
 				lines.add(line);
-				System.out.println(line);
+				
 			}
 
 			in.close();

@@ -8,6 +8,20 @@ import java.util.Properties;
 
 import org.jibble.pircbot.*;
 
+import Command.BotCommand;
+import Command.ChangeNickCommand;
+import Command.CourseCommand;
+import Command.DivideByZeroCommand;
+import Command.DoSomethingPrettyCommand;
+import Command.FMLCommand;
+import Command.GodNattCommand;
+import Command.HelloCommand;
+import Command.QuitCommand;
+import Command.ReciteCommand;
+import Command.RssCommand;
+import Command.TimeCommand;
+import Command.irritateFishbotCommand;
+
 /**
  * Testing checkoutsystem---
  * 
@@ -44,7 +58,7 @@ public class BloatBot extends PircBot {
 
 	// The character which tells the bot we're talking to it and not anything
 	// else.
-	private final String prefix = ".bloatbot ";
+	private final String prefix = "bloatbot ";
 
 	public BloatBot() {
 		config = getProperties("pbdemo.properties");	
@@ -172,7 +186,7 @@ public class BloatBot extends PircBot {
 			sendMessage(channel, "Lo! Behold the arrival of 89 inched Ralleballe ( wikipedia: ''namnet på en runristare på 1000-talet, se Balle (runristare)' ");
 		if(sender.equals("bloatbot"))
 			sendMessage(channel, "Hello, I arrive!");
-		if(sender.equals("Bobbanovich"))
+		if(sender.equals("Bobbanovich") || hostname.equals("c-83-233-144-112.cust.bredband2.com"))
 			sendMessage(channel, "http://kd35a.se/skit/robin.jpg wahaha");
 		if(hostname.equals("c-83-233-152-86.cust.bredband2.com"))
 			sendMessage(channel, "Kolla " + sender + " = Ralleballe! :D (http://sv.wikipedia.org/wiki/Balle_(runristare)) ");

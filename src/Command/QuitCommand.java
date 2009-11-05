@@ -1,3 +1,4 @@
+package Command;
 import org.jibble.pircbot.*;
 
 public class QuitCommand implements BotCommand {

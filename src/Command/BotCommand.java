@@ -1,3 +1,4 @@
+package Command;
 import org.jibble.pircbot.PircBot;
 
 /**

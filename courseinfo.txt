@@ -1,10 +1,11 @@
+KA SENAST 16nde :
+http://www.ka.lth.se/
+ 
 EDAF10 Objektorienterad modellering och diskreta strukturer:
 http://cs.lth.se/edaf10
  
-ETS052 Datorkommunikation:
-http://www.eit.lth.se/kurs/ets052
-Ovanstående för närvarande nere för facit:
-http://www.eit.lth.se/fileadmin/eit/courses/ets052/
+Flerdimensionell analys:
+http://www.maths.lth.se/matematiklth/personal/calle/flerdimht09/flerdim.html
  
 EIT020 Digimonteknik:
 http://www.eit.lth.se/kurs/eit020

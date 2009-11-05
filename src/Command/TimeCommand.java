@@ -1,3 +1,4 @@
+package Command;
 import org.jibble.pircbot.Colors;
 import org.jibble.pircbot.PircBot;
 import java.util.Date;

@@ -1,11 +1,11 @@
-KA SENAST 16nde :
-http://www.ka.lth.se/
  
-EDAF10 Objektorienterad modellering och diskreta strukturer:
-http://cs.lth.se/edaf10
+EDA260 Programvaruutveckling i grupp - projekt
+http://cs.lth.se/kurs/eda260
  
-Flerdimensionell analys:
+FMA430 Flerdimensionell analys:
 http://www.maths.lth.se/matematiklth/personal/calle/flerdimht09/flerdim.html
- 
+Lektionsblad:
+http://www.maths.lth.se/matematiklth/personal/frankw/flerdim/E09.html
+  
 EIT020 Digimonteknik:
 http://www.eit.lth.se/kurs/eit020

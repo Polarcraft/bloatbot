@@ -181,9 +181,7 @@ public class BloatBot extends PircBot {
 		if(sender.equals("bloatbot2"))
 			sendMessage(channel, "NOOOOOes, there is two of me! Bloatbots sad ._. ");
 		if(sender.equals("Ralleballe"))
-			sendMessage(channel, "Lo! Behold the arrival of Ralleballe ( wikipedia: ''slangord för testikel eller (i överförd bemärkelse) penis i Sveriges mellersta och norra delar' ");
-		if(sender.equals("Ralleballe89"))
-			sendMessage(channel, "Lo! Behold the arrival of 89 inched Ralleballe ( wikipedia: ''namnet på en runristare på 1000-talet, se Balle (runristare)' ");
+			sendMessage(channel, "http://sv.wikipedia.org/wiki/Balle");
 		if(sender.equals("bloatbot"))
 			sendMessage(channel, "Hello, I arrive!");
 		if(sender.equals("Bobbanovich") || hostname.equals("c-83-233-144-112.cust.bredband2.com"))

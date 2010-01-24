@@ -181,12 +181,12 @@ public class BloatBot extends PircBot {
 		if(sender.equals("bloatbot2"))
 			sendMessage(channel, "NOOOOOes, there is two of me! Bloatbots sad ._. ");
 		if(sender.equals("Ralleballe"))
-			sendMessage(channel, "http://sv.wikipedia.org/wiki/Balle");
+			sendMessage(channel, "Welcome "+ sender);
 		if(sender.equals("bloatbot"))
 			sendMessage(channel, "Hello, I arrive!");
 		if(sender.equals("Bobbanovich") || hostname.equals("c-83-233-144-112.cust.bredband2.com"))
 			sendMessage(channel, "http://kd35a.se/skit/robin.jpg wahaha");
-		if(hostname.equals("c-83-233-152-86.cust.bredband2.com"))
+		if(hostname.equals("c-83-233-152-86.cust.bredband2.com") && !sender.equals("Ralleballe"))
 			sendMessage(channel, "Kolla " + sender + " = Ralleballe! :D (http://sv.wikipedia.org/wiki/Balle_(runristare)) ");
 
 	}

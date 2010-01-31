@@ -20,6 +20,7 @@ import Command.QuitCommand;
 import Command.ReciteCommand;
 import Command.RssCommand;
 import Command.TimeCommand;
+import Command.dcHubCommand;
 import Command.irritateFishbotCommand;
 
 /**
@@ -78,7 +79,7 @@ public class BloatBot extends PircBot {
 		commands.add(new ChangeNickCommand());
 		commands.add(new DoSomethingPrettyCommand());
 		commands.add(new GodNattCommand());
-		
+		commands.add(new dcHubCommand());
 		// DANGEROUS. DOES NOT SCALE!!!!!!!
 		otherCommands = new ArrayList<BotCommand>();
 		otherCommands.add(new irritateFishbotCommand());

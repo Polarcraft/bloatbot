@@ -24,7 +24,6 @@ import Command.dcHubCommand;
 import Command.irritateFishbotCommand;
 
 /**
- * Testing checkoutsystem---
  * 
  * 
  * A simple PircBot bot to show a quick and easy way to add multiple commands to
@@ -80,6 +79,18 @@ public class BloatBot extends PircBot {
 		commands.add(new DoSomethingPrettyCommand());
 		commands.add(new GodNattCommand());
 		commands.add(new dcHubCommand());
+		commands.add(new BotCommand(){
+			
+			public String getCommand(){
+				return "commands";
+			}
+			// The method where each BotCommand implementor will handle the event
+			public void handleMessage(PircBot bot, String channel, String sender, String message, String[] args){
+				for(BotCommand c : commands){
+					bot.sendMessage(channel, c.getCommand());
+				}
+			}
+		});
 		// DANGEROUS. DOES NOT SCALE!!!!!!!
 		otherCommands = new ArrayList<BotCommand>();
 		otherCommands.add(new irritateFishbotCommand());

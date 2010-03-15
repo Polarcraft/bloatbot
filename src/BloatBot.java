@@ -198,7 +198,7 @@ public class BloatBot extends PircBot {
 			sendMessage(channel, "Hello, I arrive!");
 		if(sender.equals("Bobbanovich") || hostname.equals("c-83-233-144-112.cust.bredband2.com")){
 			sendMessage(channel, "http://kd35a.se/skit/robin.jpg wahaha");
-			sendMessage(channel, (char)1 + "ACTION ollar robin!");
+			sendMessage(channel, (char)1 + "ACTION ollar robin!");
 			
 		}
 		if(hostname.equals("c-83-233-152-86.cust.bredband2.com") && !sender.equals("Ralleballe"))

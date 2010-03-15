@@ -1,13 +1,9 @@
  
-EDA260 Programvaruutveckling i grupp - projekt
-http://cs.lth.se/kurs/eda260
+EDAF05 Algoritmer, datastrukturer och komplexitet
+http://cs.lth.se/EDAF05
 
-EIT070 Datorteknik
-http://www.eit.lth.se/kurs/eit070
+ETSA05 Ingenjörsprocessen för programvaruutveckling - samhällsaspekter
+http://www.cs.lth.se/ETSA05
 
-FMAF10	Tillampad matematik - Linjara system
-http://www.maths.lth.se/matematiklth/personal/ufn/TM/
-
----- For 1337-haxxorz:
-EDA150 C Programmering
-http://cs.lth.se/eda150/
+ETI265 Signalbehandling i multimedia
+http://www.eit.lth.se/kurs/eti265

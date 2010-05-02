@@ -16,6 +16,7 @@ import Command.DoSomethingPrettyCommand;
 import Command.FMLCommand;
 import Command.GodNattCommand;
 import Command.HelloCommand;
+import Command.PingUserCommand;
 import Command.QuitCommand;
 import Command.ReciteCommand;
 import Command.RssCommand;
@@ -79,6 +80,7 @@ public class BloatBot extends PircBot {
 		commands.add(new DoSomethingPrettyCommand());
 		commands.add(new GodNattCommand());
 		commands.add(new dcHubCommand());
+		commands.add(new PingUserCommand());
 		commands.add(new BotCommand(){
 			
 			public String getCommand(){
@@ -91,6 +93,8 @@ public class BloatBot extends PircBot {
 				}
 			}
 		});
+		
+		
 		// DANGEROUS. DOES NOT SCALE!!!!!!!
 		otherCommands = new ArrayList<BotCommand>();
 		otherCommands.add(new irritateFishbotCommand());
@@ -128,7 +132,7 @@ public class BloatBot extends PircBot {
 			// doesn't scale
 			for (BotCommand command : commands) {
 				// if the message starts with the commands the BotCommand
-				// responds to, remove
+				// respStringTokenizeronds to, remove
 				// the command from the message and pass the event along to the
 				// BotCommand
 				if (message.startsWith(command.getCommand())) {

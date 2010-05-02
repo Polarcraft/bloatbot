@@ -20,7 +20,7 @@ public class PingUserCommand implements BotCommand{
 			String message, String[] args) {
 			StringBuilder st = new StringBuilder("");
 			for(User s: bot.getUsers(channel)){
-				st.append(s.getNick() + "");
+				st.append(s.getNick() + " ");
 			}
 			
 			bot.sendMessage(channel, st.toString());

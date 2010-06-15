@@ -20,6 +20,7 @@ import Command.PingUserCommand;
 import Command.QuitCommand;
 import Command.ReciteCommand;
 import Command.RssCommand;
+import Command.StatCommand;
 import Command.TimeCommand;
 import Command.dcHubCommand;
 import Command.irritateFishbotCommand;
@@ -50,6 +51,8 @@ public class BloatBot extends PircBot {
 	
 	// Not prefix triggered commands
 	private final List<BotCommand> otherCommands;
+	private final StatCommand statCommand;
+	
 	//private String channel;
 	private Properties config;
 	
@@ -62,8 +65,10 @@ public class BloatBot extends PircBot {
 	private final String prefix = "bloatbot ";
 
 	public BloatBot() {
-		config = getProperties("pbdemo.properties");	
+		config = getProperties("pbdemo.properties");
 		//channel = config.getProperty("channel");
+		
+		statCommand = new StatCommand();
 		
 		commands = new ArrayList<BotCommand>();
 
@@ -81,6 +86,7 @@ public class BloatBot extends PircBot {
 		commands.add(new GodNattCommand());
 		commands.add(new dcHubCommand());
 		commands.add(new PingUserCommand());
+		commands.add(statCommand);
 		commands.add(new BotCommand(){
 			
 			public String getCommand(){
@@ -116,12 +122,11 @@ public class BloatBot extends PircBot {
 		// DANGEROUS. DOES NOT SCALE!!!!!!!
 		for(BotCommand commands : otherCommands){
 			if (message.startsWith(commands.getCommand())){
-				
-		
-			commands.handleMessage(this, channel, sender, 
+				commands.handleMessage(this, channel, sender, 
 					message.replace(commands.getCommand(), "").trim(), null);
-				}
+			}
 		}
+		
 		// Find out if message was for this bot
 		if (message.startsWith(prefix)) {
 			message = message.replace(prefix, "");
@@ -141,6 +146,8 @@ public class BloatBot extends PircBot {
 				}
 			}
 		}
+		
+		statCommand.addStat(sender);
 	}
 
 	public void onConnect() {

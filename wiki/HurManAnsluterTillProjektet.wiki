@@ -1,6 +1,6 @@
 =Hur man ansluter till projektet=
 
-Det som behövs är:
+==Det som behövs är:==
   # [http://www.eclipse.org/ Eclipse]
   # [http://www.eclipse.org/subversive/ Subversive]
   # [http://www.jibble.org/pircbot.php PircBot 1.4.6] (finns i svn:en)

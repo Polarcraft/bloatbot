@@ -1,9 +1,9 @@
  
-EDAF05 Algoritmer, datastrukturer och komplexitet
-http://cs.lth.se/EDAF05
+EDA040 Concurrent and Real-Time Programming
+http://cs.lth.se/eda040/
 
-ETSA05 Ingenjörsprocessen för programvaruutveckling - samhällsaspekter
-http://www.cs.lth.se/ETSA05
+FMS012 Matematisk statistik
+http://www.maths.lth.se/matstat/kurser/fms012/
 
-ETI265 Signalbehandling i multimedia
-http://www.eit.lth.se/kurs/eti265
+FRT010 Reglerteknik AK
+http://www.control.lth.se/~kursak/welcomeEDI.html

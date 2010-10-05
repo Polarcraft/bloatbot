@@ -17,8 +17,8 @@ public class PingUserCommand implements BotCommand{
 		String nick;
 		for(User s: bot.getUsers(channel)){
 			nick = s.getNick();
-			if (nick != "Zol" && nick != "zol" &&
-			    nick != "Zolomon" && nick != "zolomon") {
+			if (!nick.toLowerCase().equals("zolomon") &&
+			    !nick.toLowerCase().equals("zol")) {
 				st.append(s.getNick() + " ");
 			}
 		}

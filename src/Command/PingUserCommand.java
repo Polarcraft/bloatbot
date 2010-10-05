@@ -1,32 +1,28 @@
 package Command;
 
-
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
-
 public class PingUserCommand implements BotCommand{
-
-
 	
 	@Override
 	public String getCommand() {
-		// TODO Auto-generated method stub
 		return "ping";
 	}
-
+	
 	@Override
 	public void handleMessage(PircBot bot, String channel, String sender,
 			String message, String[] args) {
-			StringBuilder st = new StringBuilder("");
-			for(User s: bot.getUsers(channel)){
+		StringBuilder st = new StringBuilder("");
+		String nick;
+		for(User s: bot.getUsers(channel)){
+			nick = s.getNick();
+			if (nick != "Zol" && nick != "zol" &&
+			    nick != "Zolomon" && nick != "zolomon") {
 				st.append(s.getNick() + " ");
 			}
-			
-			bot.sendMessage(channel, st.toString());
-			
-			
-		
+		}
+		bot.sendMessage(channel, st.toString());
 	}
-
+	
 }

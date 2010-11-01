@@ -66,16 +66,17 @@ public class AddLinkCommand extends RegexCommands{
 				URL urlconnect = new URL(uri.toURL().toString()); 
 				connection = (HttpURLConnection) urlconnect.openConnection(); 
 				connection.connect();
+				// Doesn't seem to work without the buffer. Since no responce is listened to I'll leave loop blank
 				
 				 BufferedInputStream buffer = new BufferedInputStream(connection.getInputStream());
 		            
-		            StringBuilder builder = new StringBuilder();
-		            int byteRead;
-		            while ((byteRead = buffer.read()) != -1)
-		                builder.append((char) byteRead);
-		            
-		            buffer.close();
-		          
+		            //StringBuilder builder = new StringBuilder();
+		         int byteRead;
+		         while ((byteRead = buffer.read()) != -1)
+		              //  builder.append((char) byteRead);
+		         
+		         buffer.close();
+		         //--------
 				
 			}catch(Exception e){
 				System.err.println("Failed to connect to webserver");

@@ -41,9 +41,7 @@ public class AddLinkCommand extends RegexCommands{
 			URL urlconnect = new URL(uri.toURL().toString()); 
 			connection = (HttpURLConnection) urlconnect.openConnection(); 
 			connection.connect(); 
-			//do what ever u want on successful connection 
-			// 
-			// 
+ 
 			}catch(Exception e){
 				System.err.println("Failed to connect to webserver");
 			}
@@ -51,10 +49,27 @@ public class AddLinkCommand extends RegexCommands{
 		 }
 	}
 
-	@Override
-	public boolean regexSearch(String message) {
+	public void regexSearch(PircBot bot, String channel, String sender,
+			String message, String[] args) {
 		
-		return true;
+		 Matcher matcher = 
+	            pattern.matcher(message);
+		 while(matcher.find()){
+			String url = matcher.group();
+			
+			HttpURLConnection connection = null; 
+			String path = config.getProperty("linkurl") + "&url="+ url + "&author="+sender; 
+			try{ 
+				URI uri = new URI(path); 
+				URL urlconnect = new URL(uri.toURL().toString()); 
+				connection = (HttpURLConnection) urlconnect.openConnection(); 
+				connection.connect(); 
+
+			}catch(Exception e){
+				System.err.println("Failed to connect to webserver");
+			}
+		 }
+
 	}
 
 }

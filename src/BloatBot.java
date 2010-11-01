@@ -140,12 +140,9 @@ public class BloatBot extends PircBot {
 		// more dangerous shit. nothing ever scales -_-
 		// Checks for regex triggered Commands
 		for(RegexCommands command : regexCommands){
-			if(command.regexSearch(message)){
-				String[] args = getArguments(message, maxArgs);
-				command.handleMessage(this, channel, sender, 
+			String[] args = getArguments(message, maxArgs);
+			command.handleMessage(this, channel, sender, 
 						message.replace(command.getCommand(), "").trim(), args);
-	
-			}
 		}
 		
 		// Find out if message was for this bot

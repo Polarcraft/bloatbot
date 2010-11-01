@@ -10,5 +10,7 @@ public abstract class RegexCommands implements BotCommand{
 	public abstract void handleMessage(PircBot bot, String channel, String sender,
 			String message, String[] args);
 
-	public abstract boolean regexSearch(String message);
+
+	public abstract void regexSearch(PircBot bot, String channel, String sender,
+			String message, String[] args);
 }

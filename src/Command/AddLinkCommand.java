@@ -1,4 +1,5 @@
 package Command;
+import java.io.BufferedInputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -65,8 +66,23 @@ public class AddLinkCommand extends RegexCommands{
 				URL urlconnect = new URL(uri.toURL().toString()); 
 				System.out.println(urlconnect.toString());
 				connection = (HttpURLConnection) urlconnect.openConnection(); 
-				connection.connect(); 
-
+				connection.connect();
+				
+				// DEBUG
+				
+				 BufferedInputStream buffer = new BufferedInputStream(connection.getInputStream());
+		            
+		            StringBuilder builder = new StringBuilder();
+		            int byteRead;
+		            while ((byteRead = buffer.read()) != -1)
+		                builder.append((char) byteRead);
+		            
+		            buffer.close();
+		            
+		            System.out.println(builder.toString());
+		            
+				// -----------
+				
 			}catch(Exception e){
 				System.err.println("Failed to connect to webserver");
 			}

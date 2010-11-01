@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import org.jibble.pircbot.*;
 
+import Command.AddLinkCommand;
 import Command.BotCommand;
 import Command.ChangeNickCommand;
 import Command.CourseCommand;
@@ -19,6 +20,7 @@ import Command.HelloCommand;
 import Command.PingUserCommand;
 import Command.QuitCommand;
 import Command.ReciteCommand;
+import Command.RegexCommands;
 import Command.RssCommand;
 import Command.StatCommand;
 import Command.TimeCommand;
@@ -52,6 +54,9 @@ public class BloatBot extends PircBot {
 	// Not prefix triggered commands
 	private final List<BotCommand> otherCommands;
 	private final StatCommand statCommand;
+	
+	// Regex triggered commands
+	private final List<RegexCommands> regexCommands;
 	
 	//private String channel;
 	private Properties config;
@@ -94,9 +99,11 @@ public class BloatBot extends PircBot {
 			}
 			// The method where each BotCommand implementor will handle the event
 			public void handleMessage(PircBot bot, String channel, String sender, String message, String[] args){
+				String sum = "";
 				for(BotCommand c : commands){
-					bot.sendMessage(channel, c.getCommand());
+					sum += c.getCommand() +", ";
 				}
+				bot.sendMessage(channel, sum);
 			}
 		});
 		
@@ -104,6 +111,9 @@ public class BloatBot extends PircBot {
 		// DANGEROUS. DOES NOT SCALE!!!!!!!
 		otherCommands = new ArrayList<BotCommand>();
 		otherCommands.add(new irritateFishbotCommand());
+		regexCommands = new ArrayList<RegexCommands>();
+		
+		regexCommands.add(new AddLinkCommand(config));
 		// Connect to IRC
 		setAutoNickChange(true);
 		setName(config.getProperty("nick"));
@@ -119,11 +129,22 @@ public class BloatBot extends PircBot {
 	public void onMessage(String channel, String sender, String login,
 			String hostname, String message) {
 		
-		// DANGEROUS. DOES NOT SCALE!!!!!!!
+		// DANGEROUS. DOES NOT SCALE!!!!!!! 
+		// Checks for commands not triggered by Nick.
 		for(BotCommand commands : otherCommands){
 			if (message.startsWith(commands.getCommand())){
 				commands.handleMessage(this, channel, sender, 
 					message.replace(commands.getCommand(), "").trim(), null);
+			}
+		}
+		// more dangerous shit. nothing ever scales -_-
+		// Checks for regex triggered Commands
+		for(RegexCommands command : regexCommands){
+			if(command.regexSearch(message)){
+				String[] args = getArguments(message, maxArgs);
+				command.handleMessage(this, channel, sender, 
+						message.replace(command.getCommand(), "").trim(), args);
+	
 			}
 		}
 		

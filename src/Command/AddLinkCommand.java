@@ -63,6 +63,7 @@ public class AddLinkCommand extends RegexCommands{
 			try{ 
 				URI uri = new URI(path); 
 				URL urlconnect = new URL(uri.toURL().toString()); 
+				System.out.println(urlconnect.toString());
 				connection = (HttpURLConnection) urlconnect.openConnection(); 
 				connection.connect(); 
 

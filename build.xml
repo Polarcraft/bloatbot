@@ -39,6 +39,10 @@
 		<copy todir="${jar.dir}">
 			<fileset dir="${lib.dir}" includes="**/*.jar" />
 		</copy>
+		<copy file="pbdemo.properties" todir="${jar.dir}" />
+		<copy file="twitters.txt" todir="${jar.dir}"/>
+		<copy file="courseinfo.txt" todir="${jar.dir}"/>
+		<copy file="feeds.txt" todir="${jar.dir}"/>
 	</target>
 	
 	<target name="main" depends="clean,jar" />

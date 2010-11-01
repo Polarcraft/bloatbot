@@ -143,7 +143,6 @@ public class BloatBot extends PircBot {
 			String[] args = getArguments(message, maxArgs);
 			command.regexSearch(this, channel, sender, 
 						message.trim(), args);
-	
 			
 		}
 		

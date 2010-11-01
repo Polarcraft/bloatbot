@@ -55,20 +55,19 @@ public class AddLinkCommand extends RegexCommands{
 		
 		 Matcher matcher = 
 	            pattern.matcher(message);
-		 System.out.println("started search");
 		 while(matcher.find()){
 			String url = matcher.group();
-			System.out.println("Found URL :" + url + " in message: " + message);
 			HttpURLConnection connection = null; 
+			// Gets url from configfile. 
 			String path = config.getProperty("linkurl") + "&url="+ url + "&author="+sender; 
+			
 			try{ 
 				URI uri = new URI(path); 
 				URL urlconnect = new URL(uri.toURL().toString()); 
-				System.out.println(urlconnect.toString());
 				connection = (HttpURLConnection) urlconnect.openConnection(); 
 				connection.connect();
 				
-				// DEBUG
+				/* DEBUG
 				
 				 BufferedInputStream buffer = new BufferedInputStream(connection.getInputStream());
 		            
@@ -81,7 +80,7 @@ public class AddLinkCommand extends RegexCommands{
 		            
 		            System.out.println(builder.toString());
 		            
-				// -----------
+				*/
 				
 			}catch(Exception e){
 				System.err.println("Failed to connect to webserver");

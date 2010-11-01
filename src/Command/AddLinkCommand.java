@@ -67,8 +67,6 @@ public class AddLinkCommand extends RegexCommands{
 				connection = (HttpURLConnection) urlconnect.openConnection(); 
 				connection.connect();
 				
-				/* DEBUG
-				
 				 BufferedInputStream buffer = new BufferedInputStream(connection.getInputStream());
 		            
 		            StringBuilder builder = new StringBuilder();
@@ -77,10 +75,7 @@ public class AddLinkCommand extends RegexCommands{
 		                builder.append((char) byteRead);
 		            
 		            buffer.close();
-		            
-		            System.out.println(builder.toString());
-		            
-				*/
+		          
 				
 			}catch(Exception e){
 				System.err.println("Failed to connect to webserver");

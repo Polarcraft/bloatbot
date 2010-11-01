@@ -54,6 +54,7 @@ public class AddLinkCommand extends RegexCommands{
 		
 		 Matcher matcher = 
 	            pattern.matcher(message);
+		 System.out.println("started search");
 		 while(matcher.find()){
 			String url = matcher.group();
 			System.out.println("Found URL :" + url + " in message: " + message);

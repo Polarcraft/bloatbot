@@ -56,7 +56,7 @@ public class AddLinkCommand extends RegexCommands{
 	            pattern.matcher(message);
 		 while(matcher.find()){
 			String url = matcher.group();
-			
+			System.out.println("Found URL :" + url + " in message: " + message);
 			HttpURLConnection connection = null; 
 			String path = config.getProperty("linkurl") + "&url="+ url + "&author="+sender; 
 			try{ 

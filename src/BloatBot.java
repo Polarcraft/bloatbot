@@ -233,14 +233,14 @@ public class BloatBot extends PircBot {
 			sendAction(channel, "ollar robin!");
 			
 		}
-		if(hostname.equals("c-83-233-152-86.cust.bredband2.com") && !sender.equals("Ralleballe"))
-			sendMessage(channel, "Kolla " + sender + " = Ralleballe! :D (http://sv.wikipedia.org/wiki/Balle_(runristare)) ");
+//		if(hostname.equals("c-83-233-152-86.cust.bredband2.com") && !sender.equals("Ralleballe"))
+//			sendMessage(channel, "Kolla " + sender + " = Ralleballe! :D (http://sv.wikipedia.org/wiki/Balle_(runristare)) ");
 
 	}
 	
 	protected void onPrivateMessage(String sender, String login, String hostname, String message){
 		super.onPrivateMessage(sender, login, hostname, message);
-		sendMessage("#d10", sender+" makes me nervous.");
+		sendMessage("#d10", sender + " makes me nervous.");
 	}
 	public String[] getArguments(String input, int count, boolean quotations) {
 		// TODO Fix the quotation bug.

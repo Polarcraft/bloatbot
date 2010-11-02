@@ -25,10 +25,6 @@ public class DivideByZeroCommand implements BotCommand{
 		}
 		if(message.equals("two elephants")){
 			bot.sendMessage(channel, "NEVER!");
-		}
-		
-		
-		
+		}		
 	}
-
 }

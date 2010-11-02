@@ -74,6 +74,7 @@ public class BloatBot extends PircBot {
 		//channel = config.getProperty("channel");
 		
 		statCommand = new StatCommand();
+		AddLinkCommand addLink = new AddLinkCommand(config);
 		
 		commands = new ArrayList<BotCommand>();
 
@@ -92,8 +93,8 @@ public class BloatBot extends PircBot {
 		commands.add(new dcHubCommand());
 		commands.add(new PingUserCommand());
 		commands.add(statCommand);
+		commands.add(addLink);
 		commands.add(new BotCommand(){
-			
 			public String getCommand(){
 				return "commands";
 			}
@@ -109,11 +110,12 @@ public class BloatBot extends PircBot {
 		
 		
 		// DANGEROUS. DOES NOT SCALE!!!!!!!
+		// Commands that does not need keyword bloatbot first
 		otherCommands = new ArrayList<BotCommand>();
 		otherCommands.add(new irritateFishbotCommand());
 		regexCommands = new ArrayList<RegexCommands>();
-		
-		regexCommands.add(new AddLinkCommand(config));
+		//Regex commands
+		regexCommands.add(addLink);
 		// Connect to IRC
 		setAutoNickChange(true);
 		setName(config.getProperty("nick"));

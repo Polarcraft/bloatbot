@@ -24,13 +24,13 @@ public class AddLinkCommand extends RegexCommands{
 	@Override
 	public String getCommand() {
 		
-		return "addlink----------------------"; //uglyhack
+		return "link"; //uglyhack
 	}
 
 	@Override
 	public void handleMessage(PircBot bot, String channel, String sender,
 			String message, String[] args) {
-		 Matcher matcher = 
+	/*	 Matcher matcher = 
 	            pattern.matcher(message);
 		 while(matcher.find()){
 			String url = matcher.group();
@@ -47,7 +47,8 @@ public class AddLinkCommand extends RegexCommands{
 				System.err.println("Failed to connect to webserver");
 			}
 			 
-		 }
+		 } */
+		bot.sendMessage(channel ,config.getProperty("link-base-url"));
 	}
 
 	public void regexSearch(PircBot bot, String channel, String sender,

@@ -33,7 +33,7 @@ public class AddLinkCommand extends RegexCommands{
 		if( args.length == 0 ){
 			bot.sendMessage(channel ,config.getProperty("link-base-url"));
 		}else
-			bot.sendMessage(channel ,config.getProperty("link-base-url") + config.getProperty("getlinks.php?author=") + args[0]);
+			bot.sendMessage(channel ,config.getProperty("link-base-url") + config.getProperty("link-getlinks") + args[0]);
 	}
 
 	public void regexSearch(PircBot bot, String channel, String sender,

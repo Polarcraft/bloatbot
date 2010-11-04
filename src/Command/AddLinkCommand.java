@@ -30,7 +30,7 @@ public class AddLinkCommand extends RegexCommands{
 	@Override
 	public void handleMessage(PircBot bot, String channel, String sender,
 			String message, String[] args) {
-		if( args.length == 0 ){
+		if( args.length == 1 ){
 			bot.sendMessage(channel ,config.getProperty("link-base-url"));
 		}else
 			bot.sendMessage(channel ,config.getProperty("link-base-url") + config.getProperty("link-getlinks") + args[1]);

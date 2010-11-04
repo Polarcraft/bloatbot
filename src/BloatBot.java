@@ -1,12 +1,23 @@
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import org.jibble.pircbot.*;
+
+import socnet.Configuration;
+import socnet.Graph;
+import socnet.Node;
+import socnet.SocialNetworkBot;
 
 import Command.AddLinkCommand;
 import Command.BotCommand;
@@ -26,6 +37,9 @@ import Command.StatCommand;
 import Command.TimeCommand;
 import Command.dcHubCommand;
 import Command.irritateFishbotCommand;
+
+
+
 
 /**
  * 
@@ -69,7 +83,7 @@ public class BloatBot extends PircBot {
 	// else.
 	private final String prefix = "bloatbot ";
 
-	public BloatBot() {
+	public BloatBot() throws IOException {
 		config = getProperties("pbdemo.properties");
 		//channel = config.getProperty("channel");
 		
@@ -104,7 +118,7 @@ public class BloatBot extends PircBot {
 				for(BotCommand c : commands){
 					sum += c.getCommand() +", ";
 				}
-				bot.sendMessage(channel, sum);
+				sendMessage(channel, sum);
 			}
 		});
 		
@@ -126,6 +140,41 @@ public class BloatBot extends PircBot {
 			e.printStackTrace();
 			System.exit(0);
 		}
+		
+		/*
+		 * Social bot
+		 * 
+		 */
+		
+		  	Properties p = new Properties();
+	        String configFile = "./config.ini";
+	        try {
+				p.load(new FileInputStream(configFile));
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	        socialConfig = new Configuration(p);
+	        
+	        setVerbose(socialConfig.verbose);        
+	        try {
+	            setEncoding(socialConfig.encoding);
+	        }
+	        catch (UnsupportedEncodingException e) {
+	            // Stick with the platform default.
+	        }
+	        
+	       
+	        
+		 // Prevent construction if the output directory does not exist.
+        if (!socialConfig.outputDirectory.exists() || !socialConfig.outputDirectory.isDirectory()) {
+          
+				throw new IOException("Output directory (" + socialConfig.outputDirectory + ") does not exist.");
+			
+        }
 	}
 
 	public void onMessage(String channel, String sender, String login,
@@ -169,6 +218,14 @@ public class BloatBot extends PircBot {
 		}
 		
 		statCommand.addStat(sender);
+		
+		/* socialbot */
+		   add(channel, sender);
+	        
+	        // Pass the message on to the InferenceHeuristics in the channel's Graph.
+	        String key = channel.toLowerCase();
+	        Graph graph = (Graph) _graphs.get(key);
+	        graph.infer(sender, Colors.removeFormattingAndColors(message));
 	}
 
 	public void onConnect() {
@@ -238,6 +295,14 @@ public class BloatBot extends PircBot {
 //		if(hostname.equals("c-83-233-152-86.cust.bredband2.com") && !sender.equals("Ralleballe"))
 //			sendMessage(channel, "Kolla " + sender + " = Ralleballe! :D (http://sv.wikipedia.org/wiki/Balle_(runristare)) ");
 
+		/* socialbot*/
+
+        add(channel, sender);
+        
+        if (sender.equalsIgnoreCase(getNick())) {
+            // Remember that we're meant to be in this channel
+            _channelSet.add(channel.toLowerCase());
+        }
 	}
 	
 	protected void onPrivateMessage(String sender, String login, String hostname, String message){
@@ -287,4 +352,115 @@ public class BloatBot extends PircBot {
 			return (total == count)? args : Arrays.copyOfRange(args, 0, total);
 		}
 	}
+	/*------------------------------------------------------------- socialbot */
+	
+	 // HashMap of String -> Graph objects.
+    private HashMap _graphs = new HashMap();
+
+    // Used to remember which channels we should be in
+    private HashSet _channelSet = new HashSet();
+
+    private Configuration socialConfig;
+	
+	 protected void onAction(String sender, String login, String hostname, String target, String action) {
+	        if ("#&!+".indexOf(target.charAt(0)) >= 0) {
+	            onMessage(target, sender, login, hostname, action);
+	        }
+	    }
+	    // Overridden from PircBot.
+	    protected void onUserList(String channel, User[] users) {
+	        for (int i = 0; i < users.length; i++) {
+	            add(channel, users[i].getNick());
+	        }
+	    }
+	    // Overridden from PircBot.
+	    protected void onKick(String channel, String kickerNick, String kickerLogin, String kickerHostname, String recipientNick, String reason) {
+	        add(channel, kickerNick);
+	        add(channel, recipientNick);
+	        
+	        if (recipientNick.equalsIgnoreCase(getNick())) {
+	            // The bot was kicked, so rejoin the channel (if possible).
+	            joinChannel(channel);
+	        }
+	    }
+	    
+	    // Overridden from PircBot.
+	    protected void onMode(String channel, String sourceNick, String sourceLogin, String sourceHostname, String mode) {
+	        add(channel, sourceNick);
+	    }
+	    
+	    // Overridden from PircBot.
+	    protected void onNickChange(String oldNick, String login, String hostname, String newNick) {
+	        changeNick(oldNick, newNick);
+	    }
+	    
+	
+	    
+	    private void add(String channel, String nick) {
+
+	        if (socialConfig.ignoreSet.contains(nick.toLowerCase())) {
+	            return;
+	        }
+
+	        Node node = new Node(nick);
+	        String key = channel.toLowerCase();
+	        
+	        // Create the Graph for this channel if it doesn't already exist.
+	        Graph graph = (Graph) _graphs.get(key);
+	        if (graph == null) {
+	            if (socialConfig.createRestorePoints) {
+	                graph = readGraph(key);
+	            }
+	            if (graph == null) {
+	                graph = new Graph(channel, socialConfig);
+	            }
+	            _graphs.put(key, graph);
+	        }
+	        
+	        // Add the Node to the Graph.
+	        graph.addNode(node);
+	    }
+
+	    private void changeNick(String oldNick, String newNick) {
+	        // Effect the nick change by calling the mergeNode method on all Graphs.
+	        Iterator graphIt = _graphs.values().iterator();
+	        while (graphIt.hasNext()) {
+	            Graph graph = (Graph) graphIt.next();
+	            Node oldNode = new Node(oldNick);
+	            Node newNode = new Node(newNick);
+	            graph.mergeNode(oldNode, newNode);
+	        }
+	    }
+	    
+	    // Read a serialized graph from disk.
+	    private Graph readGraph(String channel) {
+	        Graph g = null;
+	        // Try and see if the graph can be restored from file.
+	        try {
+	            String strippedChannel = channel.toLowerCase().substring(1);
+	            
+	            File dir = new File(socialConfig.outputDirectory, strippedChannel);
+	            File file = new File(dir, strippedChannel + "-restore.dat");
+	            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+	            String version = (String) ois.readObject();
+	            if (version.equals(SocialNetworkBot.VERSION)) {
+	                // Only read the object if the file is for the correct version.
+	                g = (Graph) ois.readObject();
+	            }
+	            ois.close();
+	        }
+	        catch (Exception e) {
+	            // Do nothing?
+	        }
+	        return g;
+	    }
+	    
+	    public Configuration getConfig() {
+	        return socialConfig;
+	    }
+	    
+	    public Graph getGraph(String channel) {
+	        channel = channel.toLowerCase();
+	        return (Graph) _graphs.get(channel);
+	    }
 }

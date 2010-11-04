@@ -24,31 +24,16 @@ public class AddLinkCommand extends RegexCommands{
 	@Override
 	public String getCommand() {
 		
-		return "link"; //uglyhack
+		return "link";
 	}
 
 	@Override
 	public void handleMessage(PircBot bot, String channel, String sender,
 			String message, String[] args) {
-	/*	 Matcher matcher = 
-	            pattern.matcher(message);
-		 while(matcher.find()){
-			String url = matcher.group();
-			
-			HttpURLConnection connection = null; 
-			String path = config.getProperty("linkurl") + "&url="+ url + "&author="+sender; 
-			try{ 
-			URI uri = new URI(path); 
-			URL urlconnect = new URL(uri.toURL().toString()); 
-			connection = (HttpURLConnection) urlconnect.openConnection(); 
-			connection.connect(); 
- 
-			}catch(Exception e){
-				System.err.println("Failed to connect to webserver");
-			}
-			 
-		 } */
-		bot.sendMessage(channel ,config.getProperty("link-base-url"));
+		if( args.length == 0 ){
+			bot.sendMessage(channel ,config.getProperty("link-base-url"));
+		}else
+			bot.sendMessage(channel ,config.getProperty("link-base-url") + config.getProperty("getlinks.php?author=") + args[0]);
 	}
 
 	public void regexSearch(PircBot bot, String channel, String sender,

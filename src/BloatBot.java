@@ -33,6 +33,7 @@ import Command.QuitCommand;
 import Command.ReciteCommand;
 import Command.RegexCommands;
 import Command.RssCommand;
+import Command.SocialGraphLink;
 import Command.StatCommand;
 import Command.TimeCommand;
 import Command.dcHubCommand;
@@ -108,6 +109,7 @@ public class BloatBot extends PircBot {
 		commands.add(new PingUserCommand());
 		commands.add(statCommand);
 		commands.add(addLink);
+		commands.add(new SocialGraphLink(config));
 		commands.add(new BotCommand(){
 			public String getCommand(){
 				return "commands";

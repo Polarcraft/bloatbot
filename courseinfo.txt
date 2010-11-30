@@ -1,0 +1,9 @@
+ 
+EDA040 Concurrent and Real-Time Programming
+http://cs.lth.se/eda040/
+
+FMS012 Matematisk statistik
+http://www.maths.lth.se/matstat/kurser/fms012/
+
+FRT010 Reglerteknik AK
+http://www.control.lth.se/~kursak/welcomeEDI.html
